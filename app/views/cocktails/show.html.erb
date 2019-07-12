@@ -1,0 +1,20 @@
+<div class="single-cocktail-card">
+  <p><%= @cocktail.name %></p>
+
+  <h2>The ingredients are:</h2>
+  <ul>
+    <% @cocktail.doses.each do |dose| %>
+      <li><%= dose.description %> - <%= dose.ingredient.name %></li>
+
+    <% end %>
+  </ul>
+
+
+  <%= simple_form_for([@cocktail, @dose]) do |f| %>
+    <%= f.input :description %>
+    <%= f.association :ingredient %>
+    <%= f.submit %>
+  <% end %>
+
+</div>
+
