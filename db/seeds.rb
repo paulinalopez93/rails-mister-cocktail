@@ -11,6 +11,9 @@
 require 'json'
 require 'open-uri'
 require 'faker'
+elements.each("//XPath") do |node|
+
+end
 Cocktail.delete_all
 Ingredient.delete_all
 
