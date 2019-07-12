@@ -11,11 +11,9 @@
 require 'json'
 require 'open-uri'
 require 'faker'
-elements.each("//XPath") do |node|
-
-end
-Cocktail.delete_all
-Ingredient.delete_all
+Dose.destroy_all
+Cocktail.destroy_all
+Ingredient.destroy_all
 
 puts 'Clearing database...'
 
@@ -33,10 +31,27 @@ puts "Seed successful!"
 
 puts 'Creating cocktails...'
 
-10.times do
-  puts "Creating a cocktail"
-  p Cocktail.create!(
-    name: Faker::Cannabis.strain)
+
+20.times do
+  url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+  cocktail_json = open(url).read
+  cocktail_hash = JSON.parse(cocktail_json)
+
+  cocktails_array = cocktail_hash["drinks"]
+  # p cocktails_array
+  cocktails_array.each do |drink|
+    # p drink
+    p "Creating #{drink['strDrink']}"
+    Cocktail.create!(photo: drink['strDrinkThumb'],
+                    name: drink['strDrink'])
+  end
 end
+
+# 10.times do
+#   puts "Creating a cocktail"
+  # Cocktail.create!(
+#     name: Faker::Cannabis.strain,
+    # photo: "")
+# end
 
 puts "finished!"

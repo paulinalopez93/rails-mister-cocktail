@@ -9,6 +9,7 @@
     <% end %>
   </ul>
 
+<%= cl_image_tag @cocktail.photo, width: 400, height: 300, crop: :fill %>
 
   <%= simple_form_for([@cocktail, @dose]) do |f| %>
     <%= f.input :description %>
